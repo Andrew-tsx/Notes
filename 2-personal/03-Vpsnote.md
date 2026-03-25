@@ -1,0 +1,116 @@
+# server detail
+2 GB KVM VPS (New Year Special) (Server Label: racknerd-1a585a3)
+IP Address: 107.175.50.150
+
+LocationLos Angeles DC03 (Test IP: 107.174.51.158)
+Username: root
+Root Password: Iej00OEG4ZP8ho31vz
+SSH Port 22
+
+107.175.54.178
+o4AF4gFtQ37W73cYma
+```
+SolusVM Credentials are as follows. Please use SolusVM if you need to restart, console or re-install your VPS.
+URL: https://nerdvm.racknerd.com/
+Username: vmuser307214
+Password: kzqAlrnoM6cEHyr (If you already have access to the above control panel please use your existing password)
+```
+
+优惠码
+15OFFDEDI
+
+# 解决xshell无法连接vps，报错host无法解密
+vi sshd.conf
+HostKeyAlgorithms +ssh-rsa,rsa-sha2-256,rsa-sha2-512,ssh-ed25519
+PubkeyAcceptedAlgorithms +ssh-rsa,rsa-sha2-256,rsa-sha2-512,ssh-ed25519
+
+# 解决远程端口更改为6650后不生效的问题
+**修复密钥目录权限**
+chmod 755 /etc/ssh
+**修复私钥权限（必须600）**
+chmod 600 /etc/ssh/ssh_host_*_key
+**修复公钥权限（必须644）**
+chmod 644 /etc/ssh/ssh_host_*_key.pub
+**修复所属用户组**
+chown root:root /etc/ssh/ssh_host_*
+**备份旧密钥**
+mkdir -p /etc/ssh/old_keys
+mv /etc/ssh/ssh_host_* /etc/ssh/old_keys/
+**自动生成新密钥并重启SSH**
+dpkg-reconfigure openssh-server
+systemctl restart ssh.service
+**测试本地端口连通性**
+nc -zv 127.0.0.1 6650
+
+# 关闭ipv6
+vim /etc/sysctl.conf
+在文件末尾添加以下 3 行：
+```
+net.ipv6.conf.all.disable_ipv6 = 1
+net.ipv6.conf.default.disable_ipv6 = 1
+net.ipv6.conf.lo.disable_ipv6 = 1
+```
+保存退出后，执行命令使配置生效
+sysctl -p
+
+# docker install
+**官方文档**
+https://docs.docker.com/compose/install/linux/
+
+## 卸载可能冲突的docker
+sudo apt remove $(dpkg --get-selections docker.io docker-compose docker-compose-v2 docker-doc podman-docker containerd runc | cut -f1)
+
+## Add Docker's official GPG key:
+sudo apt update
+sudo apt install ca-certificates curl
+sudo install -m 0755 -d /etc/apt/keyrings
+sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+sudo chmod a+r /etc/apt/keyrings/docker.asc
+
+## Add the repository to Apt sources:
+sudo tee /etc/apt/sources.list.d/docker.sources <<EOF
+Types: deb
+URIs: https://download.docker.com/linux/ubuntu
+Suites: $(. /etc/os-release && echo "${UBUNTU_CODENAME:-$VERSION_CODENAME}")
+Components: stable
+Signed-By: /etc/apt/keyrings/docker.asc
+EOF
+
+sudo apt update
+
+sudo apt install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+
+sudo systemctl status docker
+
+## Uninstall docker engine
+sudo apt purge docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin docker-ce-rootless-extras
+
+sudo rm -rf /var/lib/docker
+sudo rm -rf /var/lib/containerd
+
+sudo rm /etc/apt/sources.list.d/docker.sources
+sudo rm /etc/apt/keyrings/docker.asc
+
+# 防火墙ufw相关知识
+如果只想开启12345端口的ipv4访问
+ufw allow proto tcp to 0.0.0.0/0 port 12345
+
+同理，如果只想开启12345端口的ipv6访问
+ufw allow proto tcp to ::/0 port 12345
+
+如果想限定12345端口的来访ip范围
+ufw allow from 192.168.1.0/24 to any port 12345
+
+如果想限定12345端口tcp协议的来访ip范围
+ufw allow proto tcp from 192.168.1.0/24 to any port 12345
+
+查看ufw当前开放的所有端口、规则
+ufw status verbose
+
+编辑ufw配置文件本身来关闭IPv6： sudo nano /etc/default/ufw 将这一行改为：IPV6=yes 改为 IPV6=no 
+
+144.48.80.230
+
+
+
+
