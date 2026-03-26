@@ -297,35 +297,7 @@ xeyes
 cc-switch
 ```
 
-https://open.bigmodel.cn/api/anthropic
-https://open.bigmodel.cn
-8a92ba23b58e4a3cb1d7dcf2fc3b2634.N26pAXhcPxU8hUrh
 
-
-sudo apt install -y libgtk-3-0 libwebkit2gtk-4.1-0 libayatana-appindicator3-1 libssl-dev libgdk-pixbuf2.0-0
-
-我的windows terminal里面，有些中文字符无法正常显示。同时在WSL里面，也存在无法正常显示部分中文字符的问题。帮我看一下
-
-curl https://open.bigmodel.cn/api/anthropic/v1/messages \
-  -H "Content-Type: application/json" \
-  -H "x-api-key: 8a92ba23b58e4a3cb1d7dcf2fc3b2634.N26pAXhcPxU8hUrh" \
-  -H "anthropic-version: 2023-06-01" \
-  -d '{
-    "model": "glm-4.7",
-    "max_tokens": 1024,
-    "messages": [{"role": "user", "content": "介绍一下你自己"}]
-  }'
-
-172.26.160.1
-
-
-WIN_PROXY_IP=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2}')
-
-
-irm https://claude.ai/install.ps1 | iex
-
-
-npm install -g @anthropic-ai/claude-code
 
 
 

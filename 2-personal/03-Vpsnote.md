@@ -8,7 +8,7 @@ Root Password: Iej00OEG4ZP8ho31vz
 SSH Port 22
 
 107.175.54.178
-o4AF4gFtQ37W73cYma
+vXk9o8suKY1t0BP5Z5
 ```
 SolusVM Credentials are as follows. Please use SolusVM if you need to restart, console or re-install your VPS.
 URL: https://nerdvm.racknerd.com/
@@ -20,11 +20,37 @@ Password: kzqAlrnoM6cEHyr (If you already have access to the above control panel
 15OFFDEDI
 
 # 解决xshell无法连接vps，报错host无法解密
-vi sshd.conf
+`vi /etc/ssh/sshd.conf`
+在文件最后加入下列参数
+```bash
 HostKeyAlgorithms +ssh-rsa,rsa-sha2-256,rsa-sha2-512,ssh-ed25519
 PubkeyAcceptedAlgorithms +ssh-rsa,rsa-sha2-256,rsa-sha2-512,ssh-ed25519
+```
 
-# 解决远程端口更改为6650后不生效的问题
+# 远程端口、密码、防火墙、hostname
+**远程端口**
+`vi /etc/ssh/sshd.conf`
+修改Port参数，注意一定不能删除原有的22端口！
+建议只在最后增加下列两行
+```bash
+Port 22
+Port your_port_number
+```
+**修改root用户密码**
+`passwd`
+之后输入两次密码，不会在界面显示
+
+**关闭ufw防火墙**
+先将防火墙关闭，防止后续无法远程上去
+等远程端口修改生效后，增加防火墙规则，再开启防火墙
+`systemctl stop ufw.service`
+
+**修改hostname**
+默认hostname很长，可用下列命令改成想要的名字
+`hostnamectl set-hostname your_name`
+
+
+# 解决远程端口更改后不生效的问题
 **修复密钥目录权限**
 chmod 755 /etc/ssh
 **修复私钥权限（必须600）**
@@ -40,7 +66,7 @@ mv /etc/ssh/ssh_host_* /etc/ssh/old_keys/
 dpkg-reconfigure openssh-server
 systemctl restart ssh.service
 **测试本地端口连通性**
-nc -zv 127.0.0.1 6650
+nc -zv 127.0.0.1 your_port
 
 # 关闭ipv6
 vim /etc/sysctl.conf
@@ -108,8 +134,6 @@ ufw allow proto tcp from 192.168.1.0/24 to any port 12345
 ufw status verbose
 
 编辑ufw配置文件本身来关闭IPv6： sudo nano /etc/default/ufw 将这一行改为：IPV6=yes 改为 IPV6=no 
-
-144.48.80.230
 
 
 
