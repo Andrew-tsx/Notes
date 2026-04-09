@@ -10,21 +10,17 @@ Andrew Chou
 nameserver
 walk.ns.cloudflare.com
 maciej.ns.cloudflare.com
+28897
 
 
 # DigitalPlat Domains
 Cassin Roland
 zhouweiqing0yuzhe@gmail.com
-BcJ88v0aFzQD0igGinAg
-+1-3029039904
-101 Avenue of the Arts, Wilmington, Delaware 19801, United States
-
 andrew.dpdns.org
 unclechou.dpdns.org
-
+nameserver
 fred.ns.cloudflare.com
 magali.ns.cloudflare.com
-
 
 
 
@@ -62,32 +58,32 @@ services:
 ═══════════════════════════════════════════
 Username:    admin
 Password:    Wwf5y6Ce4jdv6ZY0p6BM
-Port:        56650
+Port:        
 WebBasePath: vAGEy9kAgA8CPAu3wZ
-Access URL:  https://107.175.54.178:56650/vAGEy9kAgA8CPAu3wZ
-https://learn.unclechou.top:8443/vAGEy9kAgA8CPAu3wZ/
-═══════════════════════════════════════════
-5. 开启mbr算法
+Access URL:  https://ip:port/vAGEy9kAgA8CPAu3wZ
 
-6. 登录面板，入站列表
+═══════════════════════════════════════════
+1. 开启mbr算法
+
+2. 登录面板，入站列表
 根据协议、传输、安全三个地方来配置节点
 - vless + XHTTP + Reality
 - vless + tcp + Reality
 - vmess + WebSocket + TLS
 若选择TLS加密，则流量类型为https，cloudflare针对https只开放
 443, 2053, 2083, 2087, 2096, 8443
-主机：learn.unclechou.top，连接cdn
-SNI：learn.unclechou.top，伪装欺骗gfw 
+主机：domain，连接cdn
+SNI：domain，伪装欺骗gfw 
 
-7. CloudFlare解析域名
-**learn.unclechou.top**
+1. CloudFlare解析域名
+**domain**
 cdn加速
 
-8. x-ui安装SSL证书，绑定域名
-[INF] Panel paths set for domain: learn.unclechou.top 
-[INF]   - Certificate File: /root/cert/learn.unclechou.top/fullchain.pem 
-[INF]   - Private Key File: /root/cert/learn.unclechou.top/privkey.pem 
-Access URL: https://learn.unclechou.top:56650/vAGEy9kAgA8CPAu3wZ/
+1. x-ui安装SSL证书，绑定域名
+[INF] Panel paths set for domain: domain 
+[INF]   - Certificate File: /root/cert/domain/fullchain.pem 
+[INF]   - Private Key File: /root/cert/domain/privkey.pem 
+Access URL: https://domain:port/vAGEy9kAgA8CPAu3wZ/
 [INF] x-ui and xray Restarted successfully 
 注意，开启了CF cdn加速后该网址无法访问，原因在于端口被CF限制
 

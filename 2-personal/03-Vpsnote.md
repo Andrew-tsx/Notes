@@ -15,7 +15,7 @@ SSH Port 22
 107.175.54.178
 服务器后台控制页面
 <https://nerdvm.racknerd.com/>
-wyK7K0lzi581vU5OVP
+
 
 **Aliyun**
 139.224.3.240
